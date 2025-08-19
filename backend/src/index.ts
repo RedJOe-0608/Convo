@@ -1,14 +1,24 @@
 import express from 'express'
 import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 const app = express();
 const server = createServer(app);
+const io = new Server(server,{
+    cors: {
+        origin: ['http://localhost:5173']
+    }
+})
 
 app.get('/',(req,res)=> {
     res.send('<h1>Hello World</h1>')
 })
 
-app.listen(8000,()=> {
+io.on('connection',(socket)=> {
+    console.log('Client connected', socket.id);
+})
+
+server.listen(8000,()=> {
     console.log('server running at http://localhost:8000');
     
 })
