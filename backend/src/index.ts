@@ -16,6 +16,12 @@ app.get('/',(req,res)=> {
 
 io.on('connection',(socket)=> {
     console.log('Client connected', socket.id);
+
+    socket.on('message',(message)=> {
+        console.log(message);
+        io.emit('receive-message',message);
+    })
+
 })
 
 server.listen(8000,()=> {
