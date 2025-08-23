@@ -18,8 +18,8 @@ io.on('connection',(socket)=> {
     console.log('Client connected', socket.id);
 
     socket.on('message',(message)=> {
-        console.log(message);
-        io.emit('receive-message',message);
+        console.log(`Message from ${socket.id}`,message);
+        socket.broadcast.emit('receive-message',message);
     })
 
 })
